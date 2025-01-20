@@ -27,6 +27,27 @@ The project employs sophisticated feature extraction techniques to convert movie
   - Helps reduce dimensionality while maintaining information
   - Combines related genres into meaningful components
 
+## Model Evaluation
+
+The project uses two evaluation methods to ensure robust performance assessment:
+
+### 1. Train-Test Split
+- Traditional 80-20 split of the dataset
+- Stratified sampling to maintain class distribution
+- Quick initial assessment of model performance
+- Consistent test set for direct model comparisons
+
+### 2. K-Fold Cross-Validation
+- Implements 5-fold cross-validation
+- Provides more robust performance estimates
+- Shows model stability across different data splits
+- Reduces dependency on a single train-test split
+
+Each model is evaluated using both methods, providing:
+- Individual fold performance metrics
+- Averaged metrics across all folds
+- Comparison with single split results
+
 ## Models Implemented
 
 The project implements five different classification models, each with its own strengths:
@@ -65,6 +86,13 @@ The project implements five different classification models, each with its own s
 - Leaf-wise tree growth
 - Good handling of categorical features
 - Memory-efficient implementation
+
+## Results
+
+The evaluation results are saved in three CSV files:
+- `single_split_results.csv`: Results from traditional train-test split
+- `kfold_detailed_results.csv`: Detailed results for each fold
+- `kfold_avg_results.csv`: Averaged results across all folds
 
 ## License
 

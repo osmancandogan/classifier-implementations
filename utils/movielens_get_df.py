@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold
 
 
 class MovieLensDataset:
@@ -63,7 +63,42 @@ class MovieLensDataset:
 
         return X, y
 
+    def get_kfold_splits(self, n_splits=5, random_state=42):
+        """
+        Generate k-fold cross-validation splits of the data.
+        
+        Args:
+            n_splits (int): Number of folds for cross-validation
+            random_state (int): Random seed for reproducibility
+            
+        Returns:
+            list: List of tuples (X_train, X_test, y_train, y_test) for each fold
+        """
+        kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_state)
+        splits = []
+        
+        for train_idx, test_idx in kf.split(self.X):
+            X_train, X_test = self.X.iloc[train_idx], self.X.iloc[test_idx]
+            y_train, y_test = self.y.iloc[train_idx], self.y.iloc[test_idx]
+            splits.append((X_train, X_test, y_train, y_test))
+            
+        return splits
+
     def split(self, test_size=0.2, random_state=42):
-        X, y = self.feature_extraction()
-        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=test_size, random_state=random_state, stratify=y)
-        return X_train, X_test, y_train, y_test
+        """
+        Regular train-test split of the data.
+        
+        Args:
+            test_size (float): Proportion of dataset to include in the test split
+            random_state (int): Random seed for reproducibility
+            
+        Returns:
+            tuple: (X_train, X_test, y_train, y_test)
+        """
+        return train_test_split(
+            self.X, 
+            self.y, 
+            test_size=test_size, 
+            random_state=random_state, 
+            stratify=self.y
+        )
