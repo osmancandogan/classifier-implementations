@@ -93,7 +93,3 @@ The evaluation results are saved in three CSV files:
 - `single_split_results.csv`: Results from traditional train-test split
 - `kfold_detailed_results.csv`: Detailed results for each fold
 - `kfold_avg_results.csv`: Averaged results across all folds
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
